@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using PhoneContact.Migrations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace PhoneContact
+﻿namespace PhoneContact
 {
 
     class Program
@@ -13,9 +6,7 @@ namespace PhoneContact
         static void Main(string[] args)
         {
             Console.WriteLine("--- Phone Contact Manager ---");
-# region//Initialize Database
-            var optionsBuilder = new DbContextOptionsBuilder<ContactContext>();
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneContact;Integrated Security=True");
+
             bool KeepRunning = true;
             while (true)
             {
@@ -28,102 +19,58 @@ namespace PhoneContact
                 Console.Write("Enter Your Choise :");
                 string UserChoise = Console.ReadLine();
                 int choise;
-                if (int.TryParse(UserChoise, out choise))
+                if (!int.TryParse(UserChoise, out choise))
                 {
-                    try
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                    return;
+                }
+                try
+                {
+                    using (var context = new ContactDBContext())
                     {
-                        using (var context = new ContactContext())
+                        var contact = new ContactService(context);
+
+                        switch (choise)
                         {
-                            switch (choise)
-                            {
-                                case 1:
-                                    AddContact(context);
-                                    break;
-                                case 2:
-                                    ViewAllContacts(context);
-                                    break;
+                            case 1:
+                                contact.AddContact();
+                                break;
+                            case 2:
+                                contact.ViewAllContacts();
+                                break;
 
-                                case 3:
-                                    UpdateContact(context);
-                                    break;
+                            case 3:
+                                contact.UpdateContact();
+                                break;
 
-                                case 4:
-                                  //  DeleteContact(context);
-                                    break;
+                            case 4:
+                                contact.DeleteContact();
+                                break;
 
-                                case 5:
-                                    KeepRunning = false;
-                                    Console.WriteLine("Exiting the application...");
-                                    break;
-                                default:
-                                    Console.WriteLine("Invalid choice. Please enter a number between 1 and 5.");
-                                    break;
+                            case 5:
+                                KeepRunning = false;
+                                Console.WriteLine("Exiting the application...Goodbyee");
+                                return;
+                            default:
+                                Console.WriteLine("Invalid choice. Please enter a number between 1 and 5.");
+                                break;
 
-                            }
                         }
 
 
+
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"\n❌ An error occurred: {ex.Message}");
-                    }
-                    
-                 
                 }
-                else
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                    Console.WriteLine($"\n❌ An error occurred: {ex.InnerException}");
                 }
+
 
                 Console.ReadKey();
 
             }
 
-            #endregion
-
- #region//Add ContactMethod
-            static void AddContact(ContactContext context)
-            {
-                Console.Write("Enter Name: ");
-                string name = Console.ReadLine();
-                Console.Write("Enter Phone Number: ");
-                string phoneNumber = Console.ReadLine();
-                Console.Write("Enter Email: ");
-                string email = Console.ReadLine();
-                var contact = new Contact(name, phoneNumber, email);
-                context.Contacts.Add(contact);
-                context.SaveChanges();
-                Console.WriteLine("Contact added successfully.");
-            }
-
-            #endregion
-
-#region//View All Contacts Method
-            static void ViewAllContacts(ContactContext context)
-            {
-                var contacts = context.Contacts.ToList();
-                if (contacts.Count == 0)
-                {
-                    Console.WriteLine("No contacts found.");
-                }
-                else
-                {
-                    Console.WriteLine("\nContacts:");
-                    foreach (var contact in contacts)
-                    {
-                        Console.WriteLine($"ID: {contact.Id}, Name: {contact.Name}, Phone: {contact.PhoneNumber}, Email: {contact.Email}, Created On: {contact.CreatedDate}");
-                    }
-                }
-            }
-            #endregion
-
-            #region//Update Contact Method
-            static void UpdateContact(ContactContext context)
-            {
-                
-            }
-            #endregion
 
         }
     }

@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PhoneContact
+﻿namespace PhoneContact
 {
     public class Contact
     {
+        #region properties
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public DateTime CreatedDate { get; set; }
 
+
+        #endregion
+
+        #region Constructor
         public Contact(string name, string phoneNumber, string email)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -33,7 +33,8 @@ namespace PhoneContact
             Email = email;
             CreatedDate = DateTime.Now;
         }
-       
-        
+        #endregion
+
+
     }
 }

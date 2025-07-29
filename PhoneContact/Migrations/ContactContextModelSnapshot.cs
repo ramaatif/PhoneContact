@@ -9,7 +9,7 @@ using PhoneContact;
 
 namespace PhoneContact.Migrations
 {
-    [DbContext(typeof(ContactContext))]
+    [DbContext(typeof(ContactDBContext))]
     partial class ContactContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -9,13 +9,12 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace PhoneContact
 {
-    public class ContactContext : DbContext
+    public class ContactDBContext : DbContext
     {
         public DbSet<Contact> Contacts { get; set; }
-       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PhoneContact;Integrated Security=True");
         }
     }

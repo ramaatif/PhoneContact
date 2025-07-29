@@ -10,7 +10,7 @@ using PhoneContact;
 
 namespace PhoneContact.Migrations
 {
-    [DbContext(typeof(ContactContext))]
+    [DbContext(typeof(ContactDBContext))]
     [Migration("20250729150114_AddCreationDateToContact")]
     partial class AddCreationDateToContact
     {
