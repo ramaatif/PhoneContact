@@ -32,7 +32,7 @@ namespace PhoneContact
                 {
                     try
                     {
-                        using (var context = new ContactContext(optionsBuilder.Options))
+                        using (var context = new ContactContext())
                         {
                             switch (choise)
                             {
@@ -48,7 +48,7 @@ namespace PhoneContact
                                     break;
 
                                 case 4:
-                                    DeleteContact(context);
+                                  //  DeleteContact(context);
                                     break;
 
                                 case 5:
@@ -112,7 +112,7 @@ namespace PhoneContact
                     Console.WriteLine("\nContacts:");
                     foreach (var contact in contacts)
                     {
-                        Console.WriteLine($"ID: {contact.Id}, Name: {contact.Name}, Phone: {contact.PhoneNumber}, Email: {contact.Email}, Created On: {contact.CreationDate}");
+                        Console.WriteLine($"ID: {contact.Id}, Name: {contact.Name}, Phone: {contact.PhoneNumber}, Email: {contact.Email}, Created On: {contact.CreatedDate}");
                     }
                 }
             }

@@ -12,9 +12,7 @@ namespace PhoneContact
     public class ContactContext : DbContext
     {
         public DbSet<Contact> Contacts { get; set; }
-        public ContactContext(DbContextOptions<ContactContext> options) : base(options)
-        {
-        }
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -12,7 +12,7 @@ namespace PhoneContact
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public DateTime CreationDate { get; }
+        public DateTime CreatedDate { get; set; }
 
         public Contact(string name, string phoneNumber, string email)
         {
@@ -31,8 +31,7 @@ namespace PhoneContact
             Name = name;
             PhoneNumber = phoneNumber;
             Email = email;
-
-            CreationDate = DateTime.Now;
+            CreatedDate = DateTime.Now;
         }
        
         
