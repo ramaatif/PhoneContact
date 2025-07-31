@@ -14,15 +14,17 @@
                 Console.WriteLine("1. Add Contact");
                 Console.WriteLine("2. View Contacts");
                 Console.WriteLine("3. Update Contact");
-                Console.WriteLine("4. Delete Contact");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("4. Add Another PhoneNumber");
+                Console.WriteLine("5. Delete Contact");
+                Console.WriteLine("6. Search");
+                Console.WriteLine("7. Exit");
                 Console.Write("Enter Your Choise :");
                 string UserChoise = Console.ReadLine();
                 int choise;
                 if (!int.TryParse(UserChoise, out choise))
                 {
                     Console.WriteLine("Invalid input. Please enter a valid number.");
-                    return;
+                    continue;
                 }
                 try
                 {
@@ -44,10 +46,16 @@
                                 break;
 
                             case 4:
+                                contact.AddPhoneNumber();
+                                break;
+                            case 5:
                                 contact.DeleteContact();
                                 break;
+                            case 6:
+                                contact.Search();
+                                break;
 
-                            case 5:
+                            case 7:
                                 KeepRunning = false;
                                 Console.WriteLine("Exiting the application...Goodbyee");
                                 return;
@@ -66,7 +74,7 @@
                     Console.WriteLine($"\n❌ An error occurred: {ex.InnerException}");
                 }
 
-
+                Console.WriteLine("\nPress any key to return to the menu...");
                 Console.ReadKey();
 
             }
